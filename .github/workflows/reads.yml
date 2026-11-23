@@ -1,0 +1,74 @@
+name: reads
+
+# Weekdays 08:00 America/Los_Angeles. GitHub cron is UTC-only with no DST, so
+# both candidate hours are scheduled and the "when" step keeps the one that is
+# 08:00 local today: 16:00 UTC in PST, 15:00 UTC in PDT. Matching on the
+# cron string (not the clock) keeps this right when GitHub starts a run late.
+on:
+  schedule:
+    - cron: "0 15 * * 1-5"
+    - cron: "0 16 * * 1-5"
+  workflow_dispatch: # manual "Run workflow" button; always runs
+
+permissions:
+  contents: write # commit reads.xml back
+
+concurrency:
+  group: reads
+  cancel-in-progress: false
+
+jobs:
+  reads:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: when
+        id: when
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then echo "go=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if [ "$(TZ=America/Los_Angeles date +%Z)" = "PDT" ]; then want="0 15 * * 1-5"; else want="0 16 * * 1-5"; fi
+          if [ "${{ github.event.schedule }}" = "$want" ]; then echo "go=true" >> "$GITHUB_OUTPUT"; else echo "not 08:00 Los Angeles today; skipping"; fi
+
+      - if: steps.when.outputs.go == 'true'
+        uses: actions/checkout@v4
+
+      - if: steps.when.outputs.go == 'true'
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      # xurl's chat-xdk dependency ships a prebuilt library that Go 1.27's cgo
+      # check rejects, so xurl is built with Go 1.26 (same as on the Mac).
+      - if: steps.when.outputs.go == 'true'
+        run: GOTOOLCHAIN=go1.26.0 go install github.com/xdevplatform/xurl@v1.3.4
+
+      # Embeddings are cached by URL; restoring the newest cache means anchor
+      # essays and already-seen pages are not re-embedded every run.
+      - if: steps.when.outputs.go == 'true'
+        uses: actions/cache@v4
+        with:
+          path: .embed-cache.json
+          key: embed-${{ github.run_id }}
+          restore-keys: embed-
+
+      - if: steps.when.outputs.go == 'true'
+        name: scan reads
+        run: go run ./scan reads
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          X_CONSUMER_KEY: ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET: ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+
+      - if: steps.when.outputs.go == 'true'
+        name: commit reads.xml
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reads.xml
+          git diff --cached --quiet && { echo "no new items"; exit 0; }
+          git commit -m "reads: $(TZ=America/Los_Angeles date +%F)"
+          git push

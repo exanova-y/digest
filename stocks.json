@@ -15,22 +15,22 @@
     "ticker": "MU",
     "tweet_url": "https://x.com/i/status/2124894593833422977",
     "investing_window": "1 week",
-    "expected_variance": 150,
-    "expected_mean": 0.5,
-    "confidence": "low",
-    "comments": "+16% in semis rebound, AI memory beta to NVDA news, single source, relief-rally skepticism",
-    "timestamp_last_edited": "2026-11-23T20:52:56Z"
+    "expected_variance": 144,
+    "expected_mean": 1,
+    "confidence": "medium",
+    "comments": "+16% in sector-wide semis rally on Jensen return, memory flows highlighted, still below declining EMAs, follow-through unconfirmed",
+    "timestamp_last_edited": "2026-11-23T20:57:30Z"
   },
   {
     "name": "NVIDIA",
     "ticker": "NVDA",
     "tweet_url": "https://x.com/i/status/2124913710334705877",
-    "investing_window": "1 month",
-    "expected_variance": 250,
-    "expected_mean": 2,
+    "investing_window": "1 week",
+    "expected_variance": 160,
+    "expected_mean": 1.5,
     "confidence": "high",
-    "comments": "Jensen Huang reinstated as CEO, +31-33% intraday, Trump statement backs board, semis sector-wide rally, bears call relief rally, rates repricing risk",
-    "timestamp_last_edited": "2026-11-23T20:52:56Z"
+    "comments": "Jensen Huang reinstated CEO, +31-33% intraday, ~$1T cap added, Trump statement, bears call relief rally, Fed hike odds, political reversal risk",
+    "timestamp_last_edited": "2026-11-23T20:57:30Z"
   },
   {
     "name": "Super Micro Computer",

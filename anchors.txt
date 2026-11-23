@@ -1,0 +1,22 @@
+# Reference texts for the reads "worldview" check. A candidate page is kept
+# only if its embedding is close enough (cosine >= -min-sim) to at least one of
+# these. One URL per line; must be HTML (no PDFs). Edit freely; new URLs are
+# embedded on the next run, removed ones simply stop counting.
+#
+# The bar: writers who make the theorist-experimentalist divide feel
+# irrelevant (garden/src/sections/blog-roll.md).
+
+# Carver Mead
+https://worrydream.com/refs/Mead_2001_-_Interview_(American_Spectator).html
+
+# Tim Roughgarden — Beyond the Worst-Case Analysis of Algorithms (intro)
+https://arxiv.org/html/2007.13241
+
+# Nicole Yunger Halpern — Quantum Frontiers
+https://quantumfrontiers.com/2026/09/27/marcus-theory-and-marcus-practice/
+https://quantumfrontiers.com/2026/11/18/love-logical-gates-and-unrealistic-expectations/
+https://quantumfrontiers.com/2013/08/11/steampunk-quantum/
+
+# Cosmos Institute
+https://blog.cosmos-institute.org/p/verification-is-not-knowledge
+https://blog.cosmos-institute.org/p/beyond-freedom-of-choice

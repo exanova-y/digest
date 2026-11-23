@@ -46,7 +46,7 @@ Don't panic.
 - Pause after a stage and update the README with minimal edits.
 - Do not automatically commit or deploy after a stage.
 
-Verification
+### Verification
 - uv sync + Python tests pass with slim deps.
 - pnpm -C torrent lint / typecheck / test green
 - under 500 ms network latency
