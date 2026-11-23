@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Marvell Technology",
+    "ticker": "MRVL",
+    "tweet_url": "",
+    "investing_window": "1 month",
+    "expected_variance": 400,
+    "expected_mean": 1,
+    "confidence": "",
+    "comments": "Up about 18% as the AI chip rally spread across the semiconductor sector after the Nvidia CEO news.",
+    "timestamp_last_edited": "2026-11-23T20:43:49Z"
+  },
+  {
+    "name": "Micron Technology",
+    "ticker": "MU",
+    "tweet_url": "https://x.com/i/status/2124894593833422977",
+    "investing_window": "1 week",
+    "expected_variance": 150,
+    "expected_mean": 0.5,
+    "confidence": "low",
+    "comments": "+16% in semis rebound, AI memory beta to NVDA news, single source, relief-rally skepticism",
+    "timestamp_last_edited": "2026-11-23T20:52:56Z"
+  },
+  {
+    "name": "NVIDIA",
+    "ticker": "NVDA",
+    "tweet_url": "https://x.com/i/status/2124913710334705877",
+    "investing_window": "1 month",
+    "expected_variance": 250,
+    "expected_mean": 2,
+    "confidence": "high",
+    "comments": "Jensen Huang reinstated as CEO, +31-33% intraday, Trump statement backs board, semis sector-wide rally, bears call relief rally, rates repricing risk",
+    "timestamp_last_edited": "2026-11-23T20:52:56Z"
+  },
+  {
+    "name": "Super Micro Computer",
+    "ticker": "SMCI",
+    "tweet_url": "https://x.com/i/status/2124894593833422977",
+    "investing_window": "1 week",
+    "expected_variance": 300,
+    "expected_mean": 0.5,
+    "confidence": "low",
+    "comments": "+19% sympathy move with NVDA, AI infrastructure beta, single list post, high volatility, possible giveback",
+    "timestamp_last_edited": "2026-11-23T20:52:56Z"
+  },
+  {
+    "name": "Taiwan Semiconductor Manufacturing",
+    "ticker": "TSM",
+    "tweet_url": "",
+    "investing_window": "1 month",
+    "expected_variance": 196,
+    "expected_mean": 1,
+    "confidence": "",
+    "comments": "Up about 16% alongside Nvidia, its key foundry customer, as AI confidence rebounded after last week's sell-off.",
+    "timestamp_last_edited": "2026-11-23T20:43:49Z"
+  }
+]
