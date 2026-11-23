@@ -73,10 +73,10 @@ jobs:
           git commit -m "reads: $(TZ=America/Los_Angeles date +%F)"
           git push
 
-      # The garden (exanova-y/spin) renders data/reads.xml at build time and
+      # The garden (exanova-y/garden, formerly spin) renders data/reads.xml at build time and
       # Cloudflare Pages rebuilds on every push to it, so pushing the file is
       # the whole sync. GARDEN_DEPLOY_KEY is a deploy key with write access to
-      # spin only. Runs even when digest had no new items, so a garden copy
+      # the garden repo only. Runs even when digest had no new items, so a garden copy
       # that drifted (or was edited by hand) is brought back in line.
       - if: steps.when.outputs.go == 'true'
         name: sync reads.xml to garden
@@ -86,9 +86,12 @@ jobs:
           [ -n "$GARDEN_DEPLOY_KEY" ] || { echo "GARDEN_DEPLOY_KEY not set; skipping garden sync"; exit 0; }
           install -m 600 /dev/null ~/garden_key && printf '%s\n' "$GARDEN_DEPLOY_KEY" > ~/garden_key
           export GIT_SSH_COMMAND="ssh -i ~/garden_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
-          git clone --depth 1 git@github.com:exanova-y/spin.git "$RUNNER_TEMP/spin"
-          cp reads.xml "$RUNNER_TEMP/spin/data/reads.xml"
-          cd "$RUNNER_TEMP/spin"
+          # The garden keeps images in Git LFS (~220 MB); only reads.xml is
+          # needed, so LFS files stay as pointers and are pushed back untouched.
+          export GIT_LFS_SKIP_SMUDGE=1
+          git clone --depth 1 git@github.com:exanova-y/garden.git "$RUNNER_TEMP/garden"
+          cp reads.xml "$RUNNER_TEMP/garden/data/reads.xml"
+          cd "$RUNNER_TEMP/garden"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/reads.xml
