@@ -96,7 +96,11 @@ func (f *rssFeed) merge(items []rssItem, now time.Time) int {
 	if len(f.Channel.Items) > maxItems {
 		f.Channel.Items = f.Channel.Items[:maxItems]
 	}
-	f.Channel.LastBuildDate = now.Format(time.RFC1123Z)
+	// Only a real change bumps the date: otherwise every scheduled run would
+	// rewrite reads.xml, commit to digest and the garden, and rebuild the site.
+	if added > 0 || f.Channel.LastBuildDate == "" {
+		f.Channel.LastBuildDate = now.Format(time.RFC1123Z)
+	}
 	return added
 }
 
